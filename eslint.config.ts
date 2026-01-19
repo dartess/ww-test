@@ -1,23 +1,70 @@
-import js from '@eslint/js';
-import { defineConfig, globalIgnores } from 'eslint/config';
-import reactHooks from 'eslint-plugin-react-hooks';
+import dartessEslintPluginRecommended from '@dartess/eslint-plugin/recommended';
+import dartessEslintPluginRecommendedPostFormat from '@dartess/eslint-plugin/recommended-post-format';
+import dartessEslintPluginReact from '@dartess/eslint-plugin/react';
+import dartessEslintPluginMobx from '@dartess/eslint-plugin/mobx';
+import { parseGitIgnore } from '@dartess/eslint-plugin/utils';
+// @ts-ignore: https://github.com/antfu/eslint-plugin-format/issues/11
+import format from 'eslint-plugin-format';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
 
-export default defineConfig([
-  globalIgnores(['dist']),
+export default [
+  parseGitIgnore(),
+
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat['recommended-latest'],
-      reactRefresh.configs.recommended,
-    ],
+    settings: {
+      mobx: {
+        storeHooks: ['useStore'],
+      },
+    },
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      parserOptions: {
+        projectService: true,
+      },
     },
   },
-]);
+
+  ...dartessEslintPluginRecommended,
+  ...dartessEslintPluginReact,
+  ...dartessEslintPluginMobx,
+
+  eslintConfigPrettier,
+  {
+    files: ['**/*.{js,mjs,cjs,ts,mts,jsx,tsx}'],
+    plugins: {
+      format,
+    },
+    rules: {
+      'format/prettier': [
+        'error',
+        {
+          parser: 'typescript',
+          singleQuote: true,
+          printWidth: 100,
+        },
+      ],
+    },
+  },
+
+  ...dartessEslintPluginRecommendedPostFormat,
+
+  reactRefresh.configs.recommended,
+
+  {
+    name: 'own rules',
+    rules: {},
+  },
+
+  {
+    name: 'dev-related sources overrides',
+    files: ['*.{js,mjs,cjs,ts,mts,jsx,tsx}', 'scripts/**/*'],
+    rules: {
+      'no-underscore-dangle': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      'import-x/no-nodejs-modules': 'off',
+      'import-x/no-default-export': 'off',
+      'import-x/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    },
+  },
+];
