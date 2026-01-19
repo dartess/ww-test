@@ -1,0 +1,7 @@
+.root {
+    background: var(--color-black);
+    color: var(--color-white);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 34px 0;
+}

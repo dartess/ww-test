@@ -1,0 +1,14 @@
+.root {
+    color: var(--color-black);
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover, &:focus-visible {
+        color: var(--color-link-active);
+    }
+
+    &.active {
+        color: var(--color-link-active);
+    }
+}

@@ -1,0 +1,11 @@
+.root {
+    padding: 34px 0;
+}
+
+.listWrapper {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 28px;
+}
