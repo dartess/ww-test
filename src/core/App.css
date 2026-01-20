@@ -33,6 +33,7 @@ body {
   height: 100%;
   min-height: -webkit-fill-available;
   position: relative; /* https://base-ui.com/react/overview/quick-start#ios-26-safari */
+  display: grid;
 }
 
 input,

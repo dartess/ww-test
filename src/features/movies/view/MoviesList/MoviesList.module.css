@@ -7,6 +7,10 @@
     gap: 68px 60px;
     view-transition-name: list;
 
+    @supports (-moz-appearance: none) {
+        view-transition-name: none;
+    }
+
     @media (width <= 1024px) {
         gap: 34px 30px;
     }
