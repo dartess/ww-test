@@ -16,7 +16,7 @@ type Props = {
 
 export const MovieItem = observer(function MovieItem({ data }: Props) {
   const { favoriteMovies, setMovieAsFavorite } = useStore('movies');
-  const favorite = favoriteMovies.has(data.id);
+  const favorite = data.id in favoriteMovies;
   const handleFavoriteChange = useCallback(
     (newValue: boolean) => {
       setMovieAsFavorite(data.id, newValue);

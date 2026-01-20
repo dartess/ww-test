@@ -1,30 +1,15 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 
 import { MoviesApi } from '@/features/movies/store/api/MoviesApi';
 import type { HttpStore } from '@/features/http/store/HttpStore';
-import type { MovieData } from '@/features/movies/types';
+import { type MovieData, type Genre, GENRES } from '@/features/movies/types';
 
 export class MoviesStore {
   constructor(private readonly http: HttpStore) {
     makePersistable(this, {
       name: 'MoviesStore',
-      properties: [
-        {
-          key: 'favoriteMovies',
-          serialize: (value) => {
-            return JSON.stringify([...value]);
-          },
-          deserialize: (value) => {
-            try {
-              return new Set(JSON.parse((value as string) || '"[]"') as Array<MovieData['id']>);
-            } catch (exception) {
-              console.warn('Some error when deserialize', exception);
-              return new Set();
-            }
-          },
-        },
-      ],
+      properties: ['favoriteMovies'],
       storage: window.localStorage,
     });
 
@@ -37,28 +22,52 @@ export class MoviesStore {
   public accessor isMoviesLoaded = false;
 
   @observable
-  public accessor movies: Array<MovieData> = [];
+  private accessor movies: Array<MovieData> = [];
 
   @observable
-  public accessor favoriteMovies = new Set<MovieData['id']>();
+  public accessor favoriteMovies: Record<MovieData['id'], true> = {};
+
+  @observable
+  public accessor selectedGenres: Record<Genre, boolean> = Object.fromEntries(
+    GENRES.map((genre) => [genre, true]),
+  ) as Record<Genre, boolean>;
+
+  @computed
+  public get moviesFiltered(): Array<MovieData> {
+    return this.movies.filter((movieData) => this.selectedGenres[movieData.genre]);
+  }
 
   private loadMovies = async () => {
     const movies = await this.api.getMovies();
     this.setMovies(movies);
+    this.setIsMoviesLoaded(true);
   };
 
   @action
   private setMovies = (movies: Array<MovieData>) => {
     this.movies = movies;
-    this.isMoviesLoaded = true;
+  };
+
+  @action
+  private setIsMoviesLoaded = (isMoviesLoaded: boolean) => {
+    this.isMoviesLoaded = isMoviesLoaded;
   };
 
   @action
   public setMovieAsFavorite = (movieId: MovieData['id'], favorite: boolean) => {
     if (favorite) {
-      this.favoriteMovies.add(movieId);
+      this.favoriteMovies[movieId] = true;
     } else {
-      this.favoriteMovies.delete(movieId);
+      delete this.favoriteMovies[movieId];
+    }
+  };
+
+  @action
+  public selectGenre = (genre: Genre, selected: boolean) => {
+    if (selected) {
+      this.selectedGenres[genre] = true;
+    } else {
+      delete this.selectedGenres[genre];
     }
   };
 }

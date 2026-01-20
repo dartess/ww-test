@@ -1,20 +1,28 @@
+import { observer } from 'mobx-react-lite';
+
 import { Checkbox } from '@/components/Checkbox/Checkbox';
 
 import styles from './Filter.module.css';
 
-type FilterItem = {
+type FilterItemColor = 'orange' | 'green' | 'blue' | 'black';
+
+type FilterItem<T extends string> = {
   label: string;
-  value: string;
-  color: 'orange' | 'green' | 'blue' | 'black';
+  value: T;
+  color: FilterItemColor;
 };
 
-type Props = {
-  checked: Record<string, boolean>;
-  onItemCheckedChange: (value: string, checked: boolean) => void;
-  items: Array<FilterItem>;
+type Props<T extends string> = {
+  checked: Record<T, boolean | undefined>;
+  onItemCheckedChange: (value: T, checked: boolean) => void;
+  items: Array<FilterItem<T>>;
 };
 
-export const Filter = ({ items, checked, onItemCheckedChange }: Props) => {
+export const Filter = observer(function Filter<T extends string>({
+  items,
+  checked,
+  onItemCheckedChange,
+}: Props<T>) {
   return (
     <ul className={styles.root}>
       {items.map((item) => (
@@ -22,7 +30,7 @@ export const Filter = ({ items, checked, onItemCheckedChange }: Props) => {
           <Checkbox
             label={item.label}
             color={item.color}
-            checked={checked[item.value]}
+            checked={Boolean(checked[item.value])}
             onCheckedChange={(itemChecked) => {
               onItemCheckedChange(item.value, itemChecked);
             }}
@@ -31,6 +39,6 @@ export const Filter = ({ items, checked, onItemCheckedChange }: Props) => {
       ))}
     </ul>
   );
-};
+});
 
-export type { FilterItem };
+export type { FilterItem, FilterItemColor };

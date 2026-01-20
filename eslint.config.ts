@@ -52,7 +52,9 @@ export default [
 
   {
     name: 'own rules',
-    rules: {},
+    rules: {
+      '@typescript-eslint/no-dynamic-delete': 'off',
+    },
   },
 
   {
