@@ -1,0 +1,32 @@
+.root {
+    background: #FFFFFF;
+    border: 1px solid #DEE2E6;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.image {
+    aspect-ratio: 175 / 96;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.info {
+    padding: 24px 24px 36px;
+    display: grid;
+    gap: 20px;
+}
+
+.name {
+    margin: 0;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.meta {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 136px auto;
+    align-items: center;
+}

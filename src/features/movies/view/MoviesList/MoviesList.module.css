@@ -1,0 +1,12 @@
+.root {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 68px 60px;
+}
+
+.item {
+    display: grid;
+}
