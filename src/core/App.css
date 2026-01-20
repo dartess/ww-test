@@ -1,4 +1,6 @@
 :root {
+  --transition-time-default: 0.15s;
+  --transition-function-default: ease;
   --color-white: #fff;
   --color-black: #000;
   --color-main-background: var(--color-white);

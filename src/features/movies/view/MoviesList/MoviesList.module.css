@@ -5,6 +5,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 68px 60px;
+    view-transition-name: list;
 
     @media (width <= 1024px) {
         gap: 34px 30px;
@@ -13,4 +14,10 @@
 
 .item {
     display: grid;
+}
+
+::view-transition-old(list),
+::view-transition-new(list) {
+    animation-duration: var(--transition-time-default);
+    animation-timing-function: var(--transition-function-default);
 }

@@ -19,7 +19,7 @@ export const Checkbox = ({ label, color, checked, onCheckedChange }: Props) => {
         onCheckedChange={onCheckedChange}
         checked={checked}
       >
-        <BaseUiCheckbox.Indicator className={styles.indicator}>
+        <BaseUiCheckbox.Indicator className={styles.indicator} keepMounted>
           <CheckIcon className={styles.icon} />
         </BaseUiCheckbox.Indicator>
       </BaseUiCheckbox.Root>

@@ -3,6 +3,7 @@
     font-size: 16px;
     font-weight: 500;
     text-decoration: none;
+    transition: color var(--transition-time-default) var(--transition-function-default);
 
     &:hover, &:focus-visible {
         color: var(--color-link-active);
