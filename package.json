@@ -7,11 +7,15 @@
     "build": "rsbuild build",
     "dev": "rsbuild dev --open",
     "lint": "eslint .",
+    "ts": "tsc --noEmit",
     "preview": "rsbuild preview"
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
     "clsx": "^2.1.1",
+    "mobx": "^6.15.0",
+    "mobx-persist-store": "^1.1.8",
+    "mobx-react-lite": "^4.1.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"
   },

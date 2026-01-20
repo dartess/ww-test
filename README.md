@@ -2,10 +2,10 @@
 
 ## Setup
 
-Install the dependencies:
+Install the dependencies and copy env:
 
 ```bash
-npm install
+npm install && cp .env.example .env
 ```
 
 ## Get started
@@ -27,10 +27,3 @@ Preview the production build locally:
 ```bash
 npm run preview
 ```
-
-## Learn more
-
-To learn more about Rsbuild, check out the following resources:
-
-- [Rsbuild documentation](https://rsbuild.rs) - explore Rsbuild features and APIs.
-- [Rsbuild GitHub repository](https://github.com/web-infra-dev/rsbuild) - your feedback and contributions are welcome!

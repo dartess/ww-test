@@ -1,7 +1,7 @@
 export type Genre = 'action' | 'thriller' | 'comedy' | 'drama';
 
 export type MovieData = {
-  id: string;
+  id: number;
   name: string;
   description: string;
   image: string;

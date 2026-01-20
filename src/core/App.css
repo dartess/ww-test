@@ -3,8 +3,9 @@
   --color-black: #000;
   --color-main-background: var(--color-white);
   --color-main-text: var(--color-black);
-  --color-link-active: #4A61DD;
-  --color-outline: #4A61DD;
+  --color-accent: #4A61DD;
+  --color-link-active: var(--color-accent);
+  --color-outline: var(--color-accent);
   --color-orange: #EA580B;
   --color-green: #17A34A;
   --color-blue: #2463EB;
