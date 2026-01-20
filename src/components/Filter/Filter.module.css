@@ -3,5 +3,6 @@
     padding: 0;
     list-style: none;
     display: flex;
-    gap: 33px;
+    gap: 20px 33px;
+    flex-wrap: wrap;
 }

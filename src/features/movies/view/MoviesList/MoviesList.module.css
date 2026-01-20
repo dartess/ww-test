@@ -3,8 +3,12 @@
     padding: 0;
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 68px 60px;
+
+    @media (width <= 1024px) {
+        gap: 34px 30px;
+    }
 }
 
 .item {

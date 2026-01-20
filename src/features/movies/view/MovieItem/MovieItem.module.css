@@ -17,6 +17,7 @@
 }
 
 .image {
+    width: 100%;
     aspect-ratio: 175 / 96;
     object-fit: cover;
     object-position: center;
@@ -38,6 +39,10 @@
 .meta {
     display: grid;
     gap: 10px;
-    grid-template-columns: 1fr 136px auto;
+    grid-template-columns: 1fr minmax(auto, 136px) auto;
     align-items: center;
+
+    @media (width <= 1024px) {
+        grid-template-columns: 1fr minmax(auto, 96px) auto;
+    }
 }
